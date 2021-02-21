@@ -39,9 +39,11 @@ client.on("message", async (message) => {
   //   client.commands.get("server").execute(message, args);
   if (message.content === "/check") {
     try {
-      const result = await fetch(URL);
+      const { data } = await fetch(URL)
+        .then((response) => response.json())
+        .catch((error) => console.log(error));
       message.reply("Works");
-      message.channel.send(result.data);
+      message.channel.send(data);
     } catch (error) {
       console.log(erro);
     }

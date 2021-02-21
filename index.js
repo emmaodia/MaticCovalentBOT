@@ -1,11 +1,9 @@
 const fs = require("fs");
 const Discord = require("discord.js");
-// const fetch = require("node-fetch");
-const Axios = require("axios");
+const fetch = require("node-fetch");
+// const Axios = require("axios");
 
-const URL =
-  "https://api.covalenthq.com/v1/137/address/0xe2fcaee675b20a435623d27845dd57042388833f/transactions_v2/?key=API_KEY";
-
+const URL = "https://api.covalenthq.com/v1/137/block_v2/latest/?key=API_KEY";
 // Creates a discord client
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -41,9 +39,9 @@ client.on("message", async (message) => {
   //   client.commands.get("server").execute(message, args);
   if (message.content === "/check") {
     try {
-      const resullt = await Axios.get(URL);
+      const result = await fetch(URL);
       message.reply("Works");
-      message.channel.send(resullt);
+      message.channel.send(result.data);
     } catch (error) {
       console.log(erro);
     }

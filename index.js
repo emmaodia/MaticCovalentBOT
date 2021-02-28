@@ -1,5 +1,6 @@
 const fs = require("fs");
 const Discord = require("discord.js");
+require("dotenv").config;
 const fetch = require("node-fetch");
 const querystring = require("querystring");
 const trim = (str, max) =>
@@ -21,7 +22,8 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-const { TOKEN, prefix } = require("./config");
+const { TOKEN } = require("./config");
+const prefix = "/";
 // const check = require("./apiRequests");
 
 client.once("ready", () => {
@@ -127,4 +129,4 @@ client.on("message", async (message) => {
   }
 });
 
-client.login(TOKEN);
+client.login(TOKEN || process.env.TOKEN);

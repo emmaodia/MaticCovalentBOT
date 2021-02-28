@@ -22,7 +22,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-const { TOKEN } = require("./config");
+// const { TOKEN } = require("./config");
 const prefix = "/";
 // const check = require("./apiRequests");
 
@@ -129,4 +129,4 @@ client.on("message", async (message) => {
   }
 });
 
-client.login(TOKEN || process.env.TOKEN);
+client.login(process.env.TOKEN);

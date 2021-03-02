@@ -9,6 +9,7 @@ const trim = (str, max) =>
 const URL = "https://aws.random.cat/meow";
 
 const URLL = "https://api.covalenthq.com/v1/137/block_v2/latest/?key=API_KEY";
+
 // Creates a discord client
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -21,7 +22,8 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-const { TOKEN, prefix } = require("./config");
+const { TOKEN } = require("./config");
+const prefix = "/";
 // const check = require("./apiRequests");
 
 client.once("ready", () => {
@@ -47,11 +49,12 @@ client.on("message", async (message) => {
     }
   }
 
-  // if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
+  const molochdao = "0xe2fcaee675b20a435623d27845dd57042388833f";
   if (command === "tran") {
     if (!args.length) {
       return message.channel.send("You need to supply a search term!");
@@ -62,8 +65,18 @@ client.on("message", async (message) => {
       console.log(query);
       console.log(args.toString());
       console.log("working");
+      console.log(molochdao);
+
+      switch (query) {
+        case molochdao:
+          query = "0xe2fcaee675b20a435623d27845dd57042388833f";
+          return query;
+
+        default:
+          break;
+      }
       const { data } = await fetch(
-        `https://api.covalenthq.com/v1/137/address/${query}/balances_v2/?key=API_KEY`
+        `https://api.covalenthq.com/v1/137/address/${molochdao}/balances_v2/?key=API_KEY`
       ).then((response) => response.json());
 
       console.log(data);

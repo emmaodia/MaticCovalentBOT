@@ -2,14 +2,13 @@ const fs = require("fs");
 const Discord = require("discord.js");
 require("dotenv").config;
 const fetch = require("node-fetch");
-const querystring = require("querystring");
 const trim = (str, max) =>
   str.length > max ? `${str.slice(0, max - 3)}...` : str;
-// const Axios = require("axios");
 
 const URL = "https://aws.random.cat/meow";
 
 const URLL = "https://api.covalenthq.com/v1/137/block_v2/latest/?key=API_KEY";
+
 // Creates a discord client
 const client = new Discord.Client();
 client.commands = new Discord.Collection();
@@ -22,9 +21,7 @@ for (const file of commandFiles) {
   client.commands.set(command.name, command);
 }
 
-// const { TOKEN } = require("./config");
 const prefix = "/";
-// const check = require("./apiRequests");
 
 client.once("ready", () => {
   console.log("Ready!");
@@ -49,23 +46,33 @@ client.on("message", async (message) => {
     }
   }
 
-  // if (!message.content.startsWith(prefix) || message.author.bot) return;
+  if (!message.content.startsWith(prefix) || message.author.bot) return;
 
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
+  const molochdao = "0xe2fcaee675b20a435623d27845dd57042388833f";
   if (command === "tran") {
     if (!args.length) {
       return message.channel.send("You need to supply a search term!");
     }
     try {
-      // const query = querystring.stringify({ term: args.join(" ") });
       const query = args.toString();
       console.log(query);
       console.log(args.toString());
       console.log("working");
+      console.log(molochdao);
+
+      switch (query) {
+        case molochdao:
+          query = "0xe2fcaee675b20a435623d27845dd57042388833f";
+          return query;
+
+        default:
+          break;
+      }
       const { data } = await fetch(
-        `https://api.covalenthq.com/v1/137/address/${query}/balances_v2/?key=API_KEY`
+        `https://api.covalenthq.com/v1/137/address/${molochdao}/balances_v2/?key=API_KEY`
       ).then((response) => response.json());
 
       console.log(data);
@@ -93,14 +100,6 @@ client.on("message", async (message) => {
     }
   }
 
-  // // Checks if the message says "hello"
-  // if (command === "hello") {
-  //   // Sending custom message to the channel
-  //   client.commands.get("hello").execute(message, args);
-  // } else if (command.startsWith("creator")) {
-  //   client.commands.get("creator").execute(message, args);
-  // } else if (command === "server") {
-  //   client.commands.get("server").execute(message, args);
   if (message.content === "/check") {
     try {
       const { file } = await fetch(URL)

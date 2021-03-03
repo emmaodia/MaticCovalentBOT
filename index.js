@@ -52,7 +52,7 @@ client.on("message", async (message) => {
   const command = args.shift().toLowerCase();
 
   const molochdao = "0xe2fcaee675b20a435623d27845dd57042388833f";
-  if (command === "tran") {
+  if (command === "token") {
     if (!args.length) {
       return message.channel.send("You need to supply a search term!");
     }

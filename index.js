@@ -51,55 +51,6 @@ client.on("message", async (message) => {
   const args = message.content.slice(prefix.length).trim().split(/ +/);
   const command = args.shift().toLowerCase();
 
-  const molochdao = "0xe2fcaee675b20a435623d27845dd57042388833f";
-  if (command === "token") {
-    if (!args.length) {
-      return message.channel.send("You need to supply a search term!");
-    }
-    try {
-      const query = args.toString();
-      console.log(query);
-      console.log(args.toString());
-      console.log("working");
-      console.log(molochdao);
-
-      switch (query) {
-        case molochdao:
-          query = "0xe2fcaee675b20a435623d27845dd57042388833f";
-          return query;
-
-        default:
-          break;
-      }
-      const { data } = await fetch(
-        `https://api.covalenthq.com/v1/137/address/${molochdao}/balances_v2/?key=API_KEY`
-      ).then((response) => response.json());
-
-      console.log(data);
-
-      console.log("working");
-      message.channel.send(data.address);
-
-      const { address, items } = data;
-      console.log(address, items);
-      const embed = new Discord.MessageEmbed()
-        .setColor("#EFFF00")
-        .setTitle(address)
-        .addFields(
-          { name: "Contract Name", value: trim(items[0].contract_name, 1024) },
-          {
-            name: "Contract Address",
-            value: trim(items[0].contract_address, 1024),
-          },
-          { name: "Balance", value: trim(items[0].balance, 1024) }
-        );
-
-      message.channel.send(embed);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   if (message.content === "/check") {
     try {
       const { file } = await fetch(URL)

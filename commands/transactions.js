@@ -13,24 +13,15 @@ module.exports = {
     }
     try {
       const query = querystring.stringify({ term: args.join(" ") }).slice(5);
-      // let query = args.toString();
-
-      console.log(query);
-      // console.log(args.toString());
-      // console.log("working");
-      // console.log(molochdao);
 
       const { data } = await fetch(
         `https://api.covalenthq.com/v1/137/address/${query}/transactions_v2/?key=API_KEY`
       ).then((response) => response.json());
 
-      console.log(data);
-
-      console.log("working");
       message.channel.send(data.address);
 
       const { address, items } = data;
-      console.log(address, items);
+
       const embed = new Discord.MessageEmbed()
         .setColor("#EFFF00")
         .setTitle(address)
@@ -45,7 +36,6 @@ module.exports = {
 
       message.channel.send(embed);
     } catch (error) {
-      console.log(error);
       message.channel.send(`There is an error with your request`);
     }
   },

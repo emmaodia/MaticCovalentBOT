@@ -5,7 +5,7 @@ const trim = (str, max) =>
   str.length > max ? `${str.slice(0, max - 3)}...` : str;
 
 module.exports = {
-  name: "token",
+  name: "nft",
   description: "Hello Geeks!",
   execute: async (message, args) => {
     if (!args.length) {
@@ -15,7 +15,7 @@ module.exports = {
       const query = querystring.stringify({ term: args.join(" ") }).slice(5);
 
       const { data } = await fetch(
-        `https://api.covalenthq.com/v1/137/address/${query}/balances_v2/?key=API_KEY`
+        `https://api.covalenthq.com/v1/137/tokens/${query}/nft_token_ids/?key=API_KEY`
       ).then((response) => response.json());
 
       const { address, items } = data;
